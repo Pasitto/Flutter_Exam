@@ -26,13 +26,13 @@ Route _registerRWP(RouteSettings settings){
   if(settings.name == AppRoutes.detail){
     return MaterialPageRoute(builder: (context){
       DetailParameter param = settings.arguments;
-      return DetailScreen(param.person_id);
+      return DetailScreen(param.personid);
     });
   }
   else if(settings.name == AppRoutes.edit){
     return MaterialPageRoute(builder: (context){
       EditParameter param = settings.arguments;
-      return EditScreen(param.person_id);
+      return EditScreen(param.personid);
     });
   }
 }

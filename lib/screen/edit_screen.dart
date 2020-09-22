@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_exam/data/person.dart';
 
 class EditParameter{
-  final int person_id;
-  const EditParameter(this.person_id);
+  final int personid;
+  const EditParameter(this.personid);
 }
 
 class EditScreen extends StatefulWidget {
-  int person_id;
-  EditScreen(this.person_id);
+  final int personid;
+  EditScreen(this.personid);
   
   @override
   _EditScreenState createState() => _EditScreenState();
@@ -16,7 +16,7 @@ class EditScreen extends StatefulWidget {
 
 class _EditScreenState extends State<EditScreen> {
   
-  String str_score;
+  String strscore;
   bool edit;
   TextEditingController _controller;
 
@@ -24,16 +24,16 @@ class _EditScreenState extends State<EditScreen> {
   void initState() {
     super.initState();
     
-    if(widget.person_id != -1){
+    if(widget.personid != -1){
       edit = true;
-      _controller = TextEditingController(text: person[widget.person_id].name);
-      str_score = person[widget.person_id].score.toString();
+      _controller = TextEditingController(text: person[widget.personid].name);
+      strscore = person[widget.personid].score.toString();
     }
       
     else{
       edit = false;
       _controller = TextEditingController();
-      str_score = '0';
+      strscore = '0';
     }
   }
 
@@ -45,11 +45,11 @@ class _EditScreenState extends State<EditScreen> {
 
   void _buttonAction(String str){
     setState(() {
-      if(str == '0' && str_score == '0'){
+      if(str == '0' && strscore == '0'){
         //do noting
       }
       else if(str == 'CLR'){
-        str_score = '0';
+        strscore = '0';
       }
       else if(str == 'OK'){
         if( _controller.text.isEmpty ){
@@ -74,21 +74,21 @@ class _EditScreenState extends State<EditScreen> {
         }
         else{
           if(edit){
-            person[widget.person_id].name = _controller.text;
-            person[widget.person_id].score = int.parse(str_score);
+            person[widget.personid].name = _controller.text;
+            person[widget.personid].score = int.parse(strscore);
             Navigator.pop(context);
           }
           else{
-            person.add(Person(_controller.text, int.parse(str_score)));
+            person.add(Person(_controller.text, int.parse(strscore)));
             Navigator.pop(context);
           }
         }
       }
-      else if(str != '0' && str_score == '0'){
-        str_score = str;
+      else if(str != '0' && strscore == '0'){
+        strscore = str;
       }
       else{
-        str_score += str;
+        strscore += str;
       }
     });
     
@@ -130,7 +130,7 @@ class _EditScreenState extends State<EditScreen> {
               padding: EdgeInsets.all(10.0),
               alignment: Alignment.center,
               child: Text(
-                this.str_score,
+                this.strscore,
                 style: TextStyle(fontSize: 70.0, fontWeight: FontWeight.bold),                
               ),
             ),
@@ -142,33 +142,33 @@ class _EditScreenState extends State<EditScreen> {
                   Row( 
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      CustomButton('7'),
-                      CustomButton('8'),
-                      CustomButton('9'),
+                      customButton('7'),
+                      customButton('8'),
+                      customButton('9'),
                     ],
                   ),
                   Row( 
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      CustomButton('4'),
-                      CustomButton('5'),
-                      CustomButton('6'),
+                      customButton('4'),
+                      customButton('5'),
+                      customButton('6'),
                     ],
                   ),
                   Row( 
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      CustomButton('1'),
-                      CustomButton('2'),
-                      CustomButton('3'),
+                      customButton('1'),
+                      customButton('2'),
+                      customButton('3'),
                     ],
                   ),
                   Row( 
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      CustomButton('CLR'),
-                      CustomButton('0'),
-                      CustomButton('OK'),
+                      customButton('CLR'),
+                      customButton('0'),
+                      customButton('OK'),
                     ],
                   ),
                 ],
@@ -180,7 +180,7 @@ class _EditScreenState extends State<EditScreen> {
     );
   }
 
-  Widget CustomButton(String str){
+  Widget customButton(String str){
     return Expanded(
       child: GestureDetector(
         child: Container(

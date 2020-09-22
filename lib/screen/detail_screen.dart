@@ -3,12 +3,12 @@ import 'package:flutter_exam/config/routes.dart';
 import 'package:flutter_exam/data/person.dart';
 import 'package:flutter_exam/screen/edit_screen.dart';
 
-int findNext(int cur_id){
-  int find_id, min, temp;
+int findNext(int curid){
+  int findid, min, temp;
   bool flag = false;
   List<int> scoredif = [];
   for(int i=0; i<person.length; i++){
-    temp = person[i].score - person[cur_id].score;
+    temp = person[i].score - person[curid].score;
     if(temp > 0){
       min = temp;
       flag = true;
@@ -21,20 +21,20 @@ int findNext(int cur_id){
   for(int i=0; i<person.length; i++){
     if(min >= scoredif[i] && scoredif[i] > 0){
       min = scoredif[i];
-      find_id = i;
+      findid = i;
     }
   }
-  return find_id;
+  return findid;
 }
 
 class DetailParameter{
-  final int person_id;
-  const DetailParameter(this.person_id);
+  final int personid;
+  const DetailParameter(this.personid);
 } 
 
 class DetailScreen extends StatefulWidget {
-  int person_id;
-  DetailScreen(this.person_id);
+  int personid;
+  DetailScreen(this.personid);
   
   @override
   _DetailScreenState createState() => _DetailScreenState();
@@ -42,17 +42,23 @@ class DetailScreen extends StatefulWidget {
 
 class _DetailScreenState extends State<DetailScreen> {
 
-  int next_id;
+  int nextid;
   @override
   void initState() {
     super.initState();
-    this.next_id = findNext(widget.person_id);
+    this.nextid = findNext(widget.personid);
   }
 
   void nextPersonScreen(){
     setState(() {
-      widget.person_id = this.next_id;
-      this.next_id = findNext(widget.person_id);
+      widget.personid = this.nextid;
+      this.nextid = findNext(widget.personid);
+    });
+  }
+
+  void refreshScreen(){
+    setState(() {
+      this.nextid = findNext(widget.personid);
     });
   }
 
@@ -77,11 +83,11 @@ class _DetailScreenState extends State<DetailScreen> {
               ),
               child: ListTile(
                 title: Text(
-                  (widget.person_id + 1).toString() + '    ' + person[widget.person_id].name,
+                  (widget.personid + 1).toString() + '    ' + person[widget.personid].name,
                   style: TextStyle(fontSize: 30.0),
                 ),
                 trailing: Text(
-                  person[widget.person_id].score.toString(),
+                  person[widget.personid].score.toString(),
                   style: TextStyle(fontSize: 50.0, fontWeight: FontWeight.bold),
                 ),
               ),
@@ -97,14 +103,14 @@ class _DetailScreenState extends State<DetailScreen> {
                     'Next Person >', 
                     style: TextStyle(fontSize: 55.0),
                   ),
-                  this.next_id != -1 ?
+                  this.nextid != -1 ?
                   ListTile(
                     title: Text(
-                      (this.next_id + 1).toString() + '    ' + person[this.next_id].name,
+                      (this.nextid + 1).toString() + '    ' + person[this.nextid].name,
                       style: TextStyle(fontSize: 30.0),
                     ),
                     trailing: Text(
-                      person[this.next_id].score.toString(),
+                      person[this.nextid].score.toString(),
                       style: TextStyle(fontSize: 50.0, fontWeight: FontWeight.bold),
                     ),
                     onTap: () => {nextPersonScreen()},                    
@@ -122,8 +128,8 @@ class _DetailScreenState extends State<DetailScreen> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.black,
         child: Icon(Icons.edit),
-        onPressed: () => {
-          Navigator.of(context).pushNamed(AppRoutes.edit, arguments: EditParameter(widget.person_id))
+        onPressed: () => {  
+          Navigator.of(context).pushNamed(AppRoutes.edit, arguments: EditParameter(widget.personid)).whenComplete(() => refreshScreen())
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
