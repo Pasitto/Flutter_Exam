@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_exam/config/routes.dart';
 import 'package:flutter_exam/screen/detail_screen.dart';
+import 'package:flutter_exam/screen/edit_screen.dart';
 import 'package:flutter_exam/screen/home_screen.dart';
 
 void main() {
@@ -24,8 +25,14 @@ class MyApp extends StatelessWidget {
 Route _registerRWP(RouteSettings settings){
   if(settings.name == AppRoutes.detail){
     return MaterialPageRoute(builder: (context){
-        DetailParameter param = settings.arguments;
-        return DetailScreen(param.person_id);
+      DetailParameter param = settings.arguments;
+      return DetailScreen(param.person_id);
+    });
+  }
+  else if(settings.name == AppRoutes.edit){
+    return MaterialPageRoute(builder: (context){
+      EditParameter param = settings.arguments;
+      return EditScreen(param.person_id);
     });
   }
 }

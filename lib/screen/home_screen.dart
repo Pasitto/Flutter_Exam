@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_exam/config/routes.dart';
 import 'package:flutter_exam/data/person.dart';
 import 'package:flutter_exam/screen/detail_screen.dart';
+import 'package:flutter_exam/screen/edit_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -32,7 +33,9 @@ class HomeScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () => {},
+        onPressed: () => {
+          Navigator.of(context).pushNamed(AppRoutes.edit, arguments: EditParameter(-1))
+        },
       ),
     );
   }

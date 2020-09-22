@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_exam/config/routes.dart';
 import 'package:flutter_exam/data/person.dart';
+import 'package:flutter_exam/screen/edit_screen.dart';
 
 int findNext(int cur_id){
   int find_id, min, temp;
@@ -32,7 +33,7 @@ class DetailParameter{
 } 
 
 class DetailScreen extends StatefulWidget {
-  final int person_id;
+  int person_id;
   DetailScreen(this.person_id);
   
   @override
@@ -45,7 +46,14 @@ class _DetailScreenState extends State<DetailScreen> {
   @override
   void initState() {
     super.initState();
-    next_id = findNext(widget.person_id);
+    this.next_id = findNext(widget.person_id);
+  }
+
+  void nextPersonScreen(){
+    setState(() {
+      widget.person_id = this.next_id;
+      this.next_id = findNext(widget.person_id);
+    });
   }
 
   @override
@@ -99,7 +107,7 @@ class _DetailScreenState extends State<DetailScreen> {
                       person[this.next_id].score.toString(),
                       style: TextStyle(fontSize: 50.0, fontWeight: FontWeight.bold),
                     ),
-                    onTap: () => {Navigator.of(context).pushNamed(AppRoutes.detail, arguments: DetailParameter(this.next_id))},                    
+                    onTap: () => {nextPersonScreen()},                    
                   )
                   : Text(
                     "don't have a greater than score", 
@@ -114,7 +122,9 @@ class _DetailScreenState extends State<DetailScreen> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.black,
         child: Icon(Icons.edit),
-        onPressed: () => {},
+        onPressed: () => {
+          Navigator.of(context).pushNamed(AppRoutes.edit, arguments: EditParameter(widget.person_id))
+        },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
     );
