@@ -9,5 +9,5 @@ List<Person> person = [
   Person('JJ', 80),
   Person('Poon', 77),
   Person('Geng', 85),
-  Person('John', 60)
+  Person('John', 60),
 ];

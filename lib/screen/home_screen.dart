@@ -14,6 +14,7 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Container(
+              height: 150,
               padding: EdgeInsets.all(15.0),
               alignment: Alignment.centerLeft,
               decoration: UnderlineTabIndicator(borderSide: BorderSide(width: 1.0)),
@@ -23,7 +24,7 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             Container(
-              height: MediaQuery.of(context).size.height - 200,
+              height: MediaQuery.of(context).size.height - 250,
               child: _ListView(),
             ),
           ],
@@ -62,22 +63,22 @@ class _ListView extends StatelessWidget {
               alignment: Alignment.centerRight,
               child: Text(
                 (index + 1).toString(),
-                style: TextStyle(fontSize: 25.0),
+                style: TextStyle(fontSize: 30.0),
               ),
             ),
             Container(
-              width: 280,
+              width: 270,
               alignment: Alignment.centerLeft,
               child: Text(
                 data.name,
-                style: TextStyle(fontSize: 25.0),
+                style: TextStyle(fontSize: 30.0),
               ),
             ),
             Container(
               alignment: Alignment.centerRight,
               child: Text(
                 data.score.toString(),
-                style: TextStyle(fontSize: 50.0),
+                style: TextStyle(fontSize: 50.0, fontWeight: FontWeight.bold),
               ),
             ),
           ],

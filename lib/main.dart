@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
 }
 
 Route _registerRWP(RouteSettings settings){
-  if(settings.arguments == AppRoutes.detail){
+  if(settings.name == AppRoutes.detail){
     return MaterialPageRoute(builder: (context){
         DetailParameter param = settings.arguments;
         return DetailScreen(param.person_id);
