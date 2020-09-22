@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_exam/config/routes.dart';
+import 'package:flutter_exam/screen/detail_screen.dart';
 import 'package:flutter_exam/screen/home_screen.dart';
 
 void main() {
@@ -7,19 +8,24 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Score Lists',
-      //home: HomeScreen(), is optional
       routes: {
         AppRoutes.home: (context) => HomeScreen(),
-        //AppRoutes.pageA: (context) => PageAScreen(),
-        //AppRoutes.pageB: (context) => PageBScreen(),
       },
-      //onGenerateRoute: _registerRWP,
+      onGenerateRoute: _registerRWP,
     );
+  }
+}
+
+Route _registerRWP(RouteSettings settings){
+  if(settings.arguments == AppRoutes.detail){
+    return MaterialPageRoute(builder: (context){
+        DetailParameter param = settings.arguments;
+        return DetailScreen(param.person_id);
+    });
   }
 }
